@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">babysitter</string>
+    <string name="baby_button">Bebê</string>
+    <string name="parents_button">Pais</string>
+    <string name="error_url_not_found">URL not found!</string>
+    <string name="error_permission_not_granted">Permissões necessárias não concedita pelo usuário.</string>
+</resources>
