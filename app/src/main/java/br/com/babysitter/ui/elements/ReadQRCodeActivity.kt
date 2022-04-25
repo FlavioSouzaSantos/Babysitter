@@ -24,6 +24,7 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProviderFuture:ListenableFuture<ProcessCameraProvider>
+    private var qrcodeValidated:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +71,14 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
     }
 
     override fun onReadQRCode(content: String) {
-        if(this::cameraProviderFuture.isInitialized){
-            cameraProviderFuture.cancel(true)
-        }
+        if(qrcodeValidated) return
 
         if(validateUrl(content)){
+            qrcodeValidated = true
+            if(this::cameraProviderFuture.isInitialized){
+                cameraProviderFuture.cancel(true)
+            }
+
             runOnUiThread {
                 val intent = Intent(this, ReceiverActivity::class.java)
                 intent.putExtra(ReceiverActivity.URL_KEY, content)

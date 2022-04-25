@@ -10,25 +10,29 @@ import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.qrcode.QRCodeReader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
-
 
 class QRCodeAnalyzer(private val listener: QRCodeReadListener) : ImageAnalysis.Analyzer  {
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(image: ImageProxy) {
-        try {
-            val bitmap = image.image?.toBitmap()
-            if(bitmap != null){
-                val pixels = IntArray(bitmap.width * bitmap.height)
-                bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
-                val binaryBitmap = BinaryBitmap(HybridBinarizer(RGBLuminanceSource(bitmap.width, bitmap.height, pixels)))
-                val result:Result = QRCodeReader().decode(binaryBitmap)
-                listener.onReadQRCode(result.text)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val bitmap = image.image?.toBitmap()
+                if(bitmap != null){
+                    val pixels = IntArray(bitmap.width * bitmap.height)
+                    bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+                    val binaryBitmap = BinaryBitmap(HybridBinarizer(RGBLuminanceSource(bitmap.width, bitmap.height, pixels)))
+                    val result:Result = QRCodeReader().decode(binaryBitmap)
+                    listener.onReadQRCode(result.text)
+                }
+            }catch (ex:Exception){}
+            finally {
+                image.close()
             }
-        }catch (ex:Exception){}
-        finally {
-            image.close()
         }
     }
 
