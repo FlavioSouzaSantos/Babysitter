@@ -4,4 +4,6 @@
     <string name="parents_button">Pais</string>
     <string name="error_url_not_found">URL not found!</string>
     <string name="error_permission_not_granted">Permissões necessárias não concedita pelo usuário.</string>
+    <string name="qrcode_reader_tip">Escolha a função bebê no segundo dispositivo e faça a leitura do código QR.</string>
+    <string name="qrcode_reader_title">Dispositivo dos pais</string>
 </resources>

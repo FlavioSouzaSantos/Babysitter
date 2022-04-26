@@ -1,9 +1,13 @@
 package br.com.babysitter.ui.elements
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -11,6 +15,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import br.com.babysitter.R
 import br.com.babysitter.databinding.ActivityReadQrcodeBinding
 import br.com.babysitter.ui.holders.QRCodeAnalyzer
 import br.com.babysitter.ui.holders.QRCodeReadListener
@@ -26,9 +31,13 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
     private lateinit var cameraProviderFuture:ListenableFuture<ProcessCameraProvider>
     private var qrcodeValidated:Boolean=false
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityReadQrcodeBinding.inflate(layoutInflater)
+        setTitle(R.string.qrcode_reader_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(resources?.getColor(R.color.red, theme)!!))
         setContentView(mBinding.root)
     }
 
@@ -93,6 +102,16 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
 
     private fun validateUrl(url:String):Boolean {
         return url.startsWith("rtsp://") && url.endsWith("/ch0")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {
