@@ -1,13 +1,13 @@
 package br.com.babysitter.ui.elements
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -15,6 +15,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import br.com.babysitter.R
 import br.com.babysitter.databinding.ActivityReadQrcodeBinding
 import br.com.babysitter.ui.holders.QRCodeAnalyzer
@@ -31,13 +32,15 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
     private lateinit var cameraProviderFuture:ListenableFuture<ProcessCameraProvider>
     private var qrcodeValidated:Boolean=false
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityReadQrcodeBinding.inflate(layoutInflater)
         setTitle(R.string.qrcode_reader_title)
+        val red = ResourcesCompat.getColor(resources, R.color.red, theme)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(resources?.getColor(R.color.red, theme)!!))
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(red))
+        window.statusBarColor = red
+
         setContentView(mBinding.root)
     }
 
