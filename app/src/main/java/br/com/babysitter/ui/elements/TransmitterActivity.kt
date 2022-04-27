@@ -5,8 +5,10 @@ import android.graphics.Bitmap
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.os.PowerManager
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import br.com.babysitter.R
 import br.com.babysitter.databinding.ActivityTransmitterBinding
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -30,6 +32,8 @@ class TransmitterActivity: AppCompatActivity(), MediaCaptureCallback {
 
         mBinding = ActivityTransmitterBinding.inflate(layoutInflater)
         mCapture = mBinding.captureView
+        supportActionBar?.setTitle(R.string.transmitter_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         savedInstanceState?.getString(URL_KEY, null)?.apply {
             onChangeUrl(this)
@@ -52,8 +56,11 @@ class TransmitterActivity: AppCompatActivity(), MediaCaptureCallback {
         mConfig.captureMode = MediaCaptureConfig.CaptureModes.PP_MODE_ALL.`val`()
         mConfig.streamType = MediaCaptureConfig.StreamerTypes.STREAM_TYPE_RTSP_SERVER.`val`()
         mConfig.transFormat = MediaCaptureConfig.TYPE_VIDEO_H263
+        mConfig.videoFramerate = 30
+        mConfig.videoBitrate = 1500
         mConfig.audioFormat = MediaCaptureConfig.TYPE_AUDIO_AAC
         mConfig.audioChannels = 2
+        mConfig.audioBitrate = 256
         mCapture.RequestPermission(this)
         mCapture.Open(null, this)
 
@@ -157,6 +164,16 @@ class TransmitterActivity: AppCompatActivity(), MediaCaptureCallback {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
         return bitmap
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {

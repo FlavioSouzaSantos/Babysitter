@@ -35,6 +35,7 @@ class ReceiverActivity : AppCompatActivity(), MediaPlayer.OnPreparedListener, Su
 
         mBinding = ActivityReceiverBinding.inflate(layoutInflater)
         mBinding.sfView.holder.addCallback(this)
+        supportActionBar?.hide()
 
         val power = getSystemService(Context.POWER_SERVICE) as PowerManager
         mWakeLock = power.newWakeLock(PowerManager.FULL_WAKE_LOCK, "babysitter:appWakeLockTag")

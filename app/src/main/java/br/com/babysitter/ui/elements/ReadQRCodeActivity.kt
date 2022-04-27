@@ -36,11 +36,7 @@ class ReadQRCodeActivity : AppCompatActivity(), QRCodeReadListener {
         super.onCreate(savedInstanceState)
         mBinding = ActivityReadQrcodeBinding.inflate(layoutInflater)
         setTitle(R.string.qrcode_reader_title)
-        val red = ResourcesCompat.getColor(resources, R.color.red, theme)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(red))
-        window.statusBarColor = red
-
         setContentView(mBinding.root)
     }
 

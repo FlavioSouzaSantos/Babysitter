@@ -19,9 +19,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.elements.TransmitterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.elements.ReadQRCodeActivity" android:noHistory="true"/>
-        <activity android:name=".ui.elements.ReceiverActivity" android:launchMode="singleInstance"/>
+        <activity android:name=".ui.elements.TransmitterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.elements.ReadQRCodeActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ui.elements.ReceiverActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"/>
     </application>
 
     <uses-feature android:name="android.hardware.camera.any" />
