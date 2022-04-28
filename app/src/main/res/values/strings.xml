@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">babysitter</string>
-    <string name="baby_button">Bebê</string>
-    <string name="parents_button">Pais</string>
+    <string name="baby_button">Bebê\nCâmera</string>
+    <string name="parents_button">Pais\nVisualização</string>
     <string name="error_url_not_found">URL not found!</string>
     <string name="error_permission_not_granted">Permissões necessárias não concedita pelo usuário.</string>
     <string name="qrcode_reader_tip">Escolha a função bebê no outro dispositivo e faça a leitura do código QR.</string>
     <string name="qrcode_reader_title">Dispositivo dos pais</string>
     <string name="transmitter_title">Dispositivo do bebê</string>
     <string name="transmitter_tip">Escolha a função pais no outro dispositivo e faça a leitura deste código QR.</string>
+    <string name="start_title">Vamos começar!</string>
+    <string name="start_tip">Selecione uma função para esse dispositivo. Escolha uma função diferente para o segundo dispositivo.</string>
 </resources>

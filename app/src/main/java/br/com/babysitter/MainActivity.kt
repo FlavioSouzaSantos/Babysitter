@@ -20,8 +20,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-        mBinding.babyButton.setOnClickListener(this)
-        mBinding.parentsButton.setOnClickListener(this)
+        mBinding.babyCardButton.setOnClickListener(this)
+        mBinding.parentsCardButton.setOnClickListener(this)
+
+        supportActionBar?.hide()
 
         setContentView(mBinding.root)
 
@@ -32,9 +34,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if(v?.id == mBinding.babyButton.id){
+        if(v?.id == mBinding.babyCardButton.id){
             openTransmitterActivity()
-        }else if(v?.id == mBinding.parentsButton.id){
+        }else if(v?.id == mBinding.parentsCardButton.id){
             openQrCodeActivity()
         }
     }
